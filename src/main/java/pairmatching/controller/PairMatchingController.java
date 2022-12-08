@@ -3,7 +3,12 @@ package pairmatching.controller;
 
 import static pairmatching.domain.MainFunctionCommand.*;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import pairmatching.view.InputView;
+import pairmatching.view.OutputView;
 
 public class PairMatchingController {
 
@@ -27,15 +32,21 @@ public class PairMatchingController {
 		}
 	}
 
-	public void selectPairMatch() {
+	private void selectPairMatch() {
+		List<String> courseAndMission = receiveUserDetails();
+	}
+
+	private List<String> receiveUserDetails() {
+		OutputView.printCourseAndMission();
+		return Arrays.stream(InputView.inputCourseAndMission().split(","))
+			.collect(Collectors.toList());
+	}
+
+	private void selectPairInquiry() {
 
 	}
 
-	public void selectPairInquiry() {
-
-	}
-
-	public void selectPairInit() {
+	private void selectPairInit() {
 
 	}
 

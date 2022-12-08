@@ -14,8 +14,8 @@ public enum MainFunctionCommand {
 		this.command = command;
 	}
 
-	public static void of(String input) {
-		Arrays.stream(MainFunctionCommand.values()).filter(command -> command.getCommand().equals(input))
+	public static MainFunctionCommand of(String input) {
+		return Arrays.stream(MainFunctionCommand.values()).filter(command -> command.getCommand().equals(input))
 			.findFirst().orElseThrow(() -> new IllegalArgumentException("올바른 커맨드를 입력해 주세요."));
 	}
 
