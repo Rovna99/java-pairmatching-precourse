@@ -23,6 +23,11 @@ public class OutputView {
 		System.out.println();
 	}
 
+	public static void printInitMessage() {
+		System.out.println("초기화 되었습니다.");
+		System.out.println();
+	}
+
 	public static void printError(String message) {
 		System.out.println("[ERROR] " + message);
 	}

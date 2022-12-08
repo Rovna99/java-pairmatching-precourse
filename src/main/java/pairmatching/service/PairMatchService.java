@@ -36,5 +36,7 @@ public class PairMatchService {
 		return matchResults.canInquiryResults();
 	}
 
-
+	public void initMatchResults() {
+		matchResults.initResults();
+	}
 }

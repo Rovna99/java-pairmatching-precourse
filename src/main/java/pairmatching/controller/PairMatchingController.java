@@ -76,7 +76,8 @@ public class PairMatchingController {
 	}
 
 	private void selectPairInit() {
-
+		OutputView.printInitMessage();
+		pairMatchService.initMatchResults();
 	}
 
 }

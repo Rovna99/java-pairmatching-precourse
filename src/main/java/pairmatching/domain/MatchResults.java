@@ -29,4 +29,8 @@ public class MatchResults {
 		}
 		return true;
 	}
+
+	public void initResults() {
+		results.clear();
+	}
 }
