@@ -12,7 +12,7 @@ public class Validator {
 	private static final String MAIN_FUNCTION_PATTERN = "^[\\dA-Z]*$";
 
 	public static void validateMainFunctionSelect(String input) {
-		if (!Pattern.matches(MAIN_FUNCTION_PATTERN,input)) {
+		if (!Pattern.matches(MAIN_FUNCTION_PATTERN, input)) {
 			throw new IllegalArgumentException("올바른 커맨드를 입력해 주세요.");
 		}
 	}
@@ -24,7 +24,7 @@ public class Validator {
 	}
 
 	public static void validateCourseAndMission(String input) {
-		List<String> details = Arrays.stream(input.replaceAll(" ","").split(","))
+		List<String> details = Arrays.stream(input.replaceAll(" ", "").split(","))
 			.collect(Collectors.toList());
 		if (details.size() != 3) {
 			throw new IllegalArgumentException("과정, 레벨, 미션을 모두 입력해주세요.");

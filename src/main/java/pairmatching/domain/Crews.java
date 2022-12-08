@@ -42,7 +42,7 @@ public class Crews {
 	}
 
 	private boolean canMatchOddCrews() {
-		int LastThreeCrewsIndex = crews.size()-3;
+		int LastThreeCrewsIndex = crews.size() - 3;
 		Crew crew1 = crews.get(LastThreeCrewsIndex++);
 		Crew crew2 = crews.get(LastThreeCrewsIndex++);
 		Crew crew3 = crews.get(LastThreeCrewsIndex);
@@ -50,9 +50,9 @@ public class Crews {
 	}
 
 	private void matchEvenCrews() {
-		for (int i = 0; i < crews.size(); i = i+2) {
+		for (int i = 0; i < crews.size(); i = i + 2) {
 			Crew crew1 = crews.get(i);
-			Crew crew2 = crews.get(i+1);
+			Crew crew2 = crews.get(i + 1);
 			if (isPairedOneTime(crew1, crew2)) {
 				crews.clear();
 				break;
@@ -62,9 +62,9 @@ public class Crews {
 	}
 
 	private void matchOddCrews() {
-		for (int i = 0; i < crews.size()-3; i = i+2) {
+		for (int i = 0; i < crews.size() - 3; i = i + 2) {
 			Crew crew1 = crews.get(i);
-			Crew crew2 = crews.get(i+1);
+			Crew crew2 = crews.get(i + 1);
 			if (isPairedOneTime(crew1, crew2)) {
 				crews.clear();
 				break;
@@ -85,7 +85,7 @@ public class Crews {
 	}
 
 	private void matchOddCrew() {
-		int LastThreeCrewsIndex = crews.size()-3;
+		int LastThreeCrewsIndex = crews.size() - 3;
 		Crew crew1 = crews.get(LastThreeCrewsIndex++);
 		Crew crew2 = crews.get(LastThreeCrewsIndex++);
 		Crew crew3 = crews.get(LastThreeCrewsIndex);

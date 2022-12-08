@@ -1,13 +1,11 @@
 package pairmatching.controller;
 
-
 import static pairmatching.domain.MainFunctionCommand.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import pairmatching.domain.Crews;
 import pairmatching.domain.MatchResult;
 import pairmatching.domain.UserDetail;
 import pairmatching.service.PairMatchService;
@@ -16,6 +14,7 @@ import pairmatching.view.OutputView;
 
 public class PairMatchingController {
 	private final PairMatchService pairMatchService;
+
 	public PairMatchingController() {
 		pairMatchService = new PairMatchService();
 	}
@@ -57,7 +56,7 @@ public class PairMatchingController {
 	private UserDetail receiveUserDetails() {
 		OutputView.printCourseAndMission();
 		List<String> detail = Arrays.stream(InputView.inputCourseAndMission().replaceAll(" ", "")
-				.split(",")).collect(Collectors.toList());
+			.split(",")).collect(Collectors.toList());
 		return new UserDetail(detail.get(0), detail.get(1), detail.get(2));
 	}
 
@@ -71,13 +70,13 @@ public class PairMatchingController {
 	}
 
 	private void rematch(UserDetail detail) {
-		 while (InputView.inputPairRematch().equals("네")) {
-			 MatchResult matchResult = pairMatchService.matchPair(detail);
-			 if (!matchResult.isEmpty()) {
-				 OutputView.printMatchResult(matchResult.getMatchResult());
-				 return;
-			 }
-		 }
+		while (InputView.inputPairRematch().equals("네")) {
+			MatchResult matchResult = pairMatchService.matchPair(detail);
+			if (!matchResult.isEmpty()) {
+				OutputView.printMatchResult(matchResult.getMatchResult());
+				return;
+			}
+		}
 	}
 
 	private void selectPairInquiry() {

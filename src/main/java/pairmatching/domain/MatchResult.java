@@ -6,6 +6,7 @@ import java.util.List;
 public class MatchResult {
 	private final UserDetail userDetail;
 	private final List<Pair> matchResult;
+
 	public MatchResult(UserDetail detail, List<Pair> matchResult) {
 		this.userDetail = detail;
 		this.matchResult = matchResult;
