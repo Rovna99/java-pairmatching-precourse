@@ -3,15 +3,13 @@ package pairmatching.domain;
 import java.util.Arrays;
 
 public enum Course {
-	BACKEND("백엔드", "backend-crew.md"),
-	FRONTEND("프론트엔드", "frontend-crew.md");
+	BACKEND("백엔드"),
+	FRONTEND("프론트엔드");
 
 	private final String name;
-	private final String courseName;
 
-	Course(String name, String courseName) {
+	Course(String name) {
 		this.name = name;
-		this.courseName = courseName;
 	}
 
 	public static Course of(String input) {
@@ -20,6 +18,6 @@ public enum Course {
 	}
 
 	public String getCourseName() {
-		return courseName;
+		return name;
 	}
 }

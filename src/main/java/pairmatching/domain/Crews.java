@@ -7,6 +7,7 @@ import camp.nextstep.edu.missionutils.Randoms;
 
 public class Crews {
 	private final List<Crew> crews;
+	private int matchCount = 0;
 	private List<Pair> matched = new ArrayList<>();
 
 	public Crews(List<String> crewNames) {
@@ -22,15 +23,16 @@ public class Crews {
 	}
 
 	public void suppleCrews() {
-		 Randoms.shuffle(crews);
+		Randoms.shuffle(crews);
 	}
 
 	public void matchCrews() {
+		matchCount++;
 		initMatched();
 		if (crews.size() % 2 == 0) {
 			matchEvenCrews();
 		}
-		if (crews.size() % 2 != 0 && canMatchOddNumberCrews()) {
+		if (crews.size() % 2 != 0 && canMatchOddCrews()) {
 			matchOddCrews();
 		}
 	}
@@ -39,12 +41,12 @@ public class Crews {
 		matched = new ArrayList<>();
 	}
 
-	private boolean canMatchOddNumberCrews() {
+	private boolean canMatchOddCrews() {
 		int LastThreeCrewsIndex = crews.size()-3;
 		Crew crew1 = crews.get(LastThreeCrewsIndex++);
 		Crew crew2 = crews.get(LastThreeCrewsIndex++);
 		Crew crew3 = crews.get(LastThreeCrewsIndex);
-		return !isPairedOneTime(crew1, crew2, crew3);
+		return !(crew1.hasMatchHistory(crew2) || crew1.hasMatchHistory(crew3) || crew2.hasMatchHistory(crew3));
 	}
 
 	private void matchEvenCrews() {
@@ -52,6 +54,7 @@ public class Crews {
 			Crew crew1 = crews.get(i);
 			Crew crew2 = crews.get(i+1);
 			if (isPairedOneTime(crew1, crew2)) {
+				crews.clear();
 				break;
 			}
 			matchEvenCrew(crew1, crew2);
@@ -62,19 +65,17 @@ public class Crews {
 		for (int i = 0; i < crews.size()-3; i = i+2) {
 			Crew crew1 = crews.get(i);
 			Crew crew2 = crews.get(i+1);
-			if (isPairedOneTime(crew1, crew2) ) {
+			if (isPairedOneTime(crew1, crew2)) {
+				crews.clear();
 				break;
 			}
 			matchEvenCrew(crew1, crew2);
 		}
+		matchOddCrew();
 	}
 
 	private boolean isPairedOneTime(Crew crew1, Crew crew2) {
 		return crew1.hasMatchHistory(crew2);
-	}
-
-	private boolean isPairedOneTime(Crew crew1, Crew crew2, Crew crew3) {
-		return (crew1.hasMatchHistory(crew2) && crew1.hasMatchHistory(crew3) && crew2.hasMatchHistory(crew3));
 	}
 
 	private void matchEvenCrew(Crew crew1, Crew crew2) {
@@ -83,10 +84,13 @@ public class Crews {
 
 	}
 
-	private void matchOddCrew(Crew crew1, Crew crew2, Crew crew3) {
+	private void matchOddCrew() {
+		int LastThreeCrewsIndex = crews.size()-3;
+		Crew crew1 = crews.get(LastThreeCrewsIndex++);
+		Crew crew2 = crews.get(LastThreeCrewsIndex++);
+		Crew crew3 = crews.get(LastThreeCrewsIndex);
 		saveOddCrew(crew1, crew2, crew3);
 		matched.add(new Pair(crew1, crew2, crew3));
-
 	}
 
 	private void saveEvenCrew(Crew crew1, Crew crew2) {
@@ -104,6 +108,9 @@ public class Crews {
 	}
 
 	public List<Pair> getMatched() {
+		if (matchCount == 4 && matched.isEmpty()) {
+			throw new IllegalArgumentException("현재 재매칭할 수 있는 경우의 수가 없습니다.");
+		}
 		return matched;
 	}
 }

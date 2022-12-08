@@ -17,9 +17,18 @@ public class Validator {
 		}
 	}
 
+	public static void validatePairRematch(String input) {
+		if (!(input.equals("네") || input.equals("아니오"))) {
+			throw new IllegalArgumentException("네 또는 아니오 중에 입력해주세요.");
+		}
+	}
+
 	public static void validateCourseAndMission(String input) {
 		List<String> details = Arrays.stream(input.replaceAll(" ","").split(","))
 			.collect(Collectors.toList());
+		if (details.size() != 3) {
+			throw new IllegalArgumentException("과정, 레벨, 미션을 모두 입력해주세요.");
+		}
 		Course.of(details.get(0));
 		Mission.findLevel(details.get(1));
 		Mission.findMission(details.get(2));

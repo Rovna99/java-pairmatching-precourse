@@ -25,4 +25,9 @@ public class MatchResult {
 		}
 		return pairNames;
 	}
+
+	public boolean isEmpty() {
+		return matchResult.isEmpty();
+	}
 }
+

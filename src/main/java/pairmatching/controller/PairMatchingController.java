@@ -45,9 +45,12 @@ public class PairMatchingController {
 	}
 
 	private void selectPairMatch() {
-		UserDetail detail = receiveUserDetails();
-		if (pairMatchService.isDetailCanMatch(detail)) {
+		try {
+			UserDetail detail = receiveUserDetails();
 			pairMatch(detail);
+		} catch (IllegalArgumentException e) {
+			OutputView.printError(e.getMessage());
+			selectPairMatch();
 		}
 	}
 
@@ -59,9 +62,22 @@ public class PairMatchingController {
 	}
 
 	private void pairMatch(UserDetail detail) {
-		int matchCount = 0;
-		MatchResult matchResult = pairMatchService.matchPair(detail);
-		OutputView.printMatchResult(matchResult.getMatchResult());
+		if (pairMatchService.isDetailCanMatch(detail)) {
+			MatchResult matchResult = pairMatchService.matchPair(detail);
+			OutputView.printMatchResult(matchResult.getMatchResult());
+			return;
+		}
+		rematch(detail);
+	}
+
+	private void rematch(UserDetail detail) {
+		 while (InputView.inputPairRematch().equals("네")) {
+			 MatchResult matchResult = pairMatchService.matchPair(detail);
+			 if (!matchResult.isEmpty()) {
+				 OutputView.printMatchResult(matchResult.getMatchResult());
+				 return;
+			 }
+		 }
 	}
 
 	private void selectPairInquiry() {
