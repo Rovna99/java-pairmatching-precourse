@@ -13,4 +13,20 @@ public class MatchResults {
 	public void saveResult(MatchResult result) {
 		results.add(result);
 	}
+
+	public MatchResult getMatchResult(UserDetail userDetail) {
+		for (MatchResult result : results) {
+			if (result.hasMatchResult(userDetail)) {
+				return result;
+			}
+		}
+		throw new IllegalArgumentException("매칭된 이력이 없습니다.");
+	}
+
+	public boolean canInquiryResults() {
+		if (results.isEmpty()) {
+			throw new IllegalArgumentException("매칭된 이력이 없습니다.");
+		}
+		return true;
+	}
 }

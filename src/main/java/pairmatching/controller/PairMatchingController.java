@@ -23,8 +23,12 @@ public class PairMatchingController {
 	public void run() {
 		String selectMain = "";
 		while (!selectMain.equals(QUIT.getCommand())) {
-			selectMain = InputView.inputMainFunctionSelect();
-			performSelectFunction(selectMain);
+			try {
+				selectMain = InputView.inputMainFunctionSelect();
+				performSelectFunction(selectMain);
+			} catch (IllegalArgumentException e) {
+				OutputView.printError(e.getMessage());
+			}
 		}
 	}
 
@@ -32,7 +36,7 @@ public class PairMatchingController {
 		if (selectMain.equals(PAIR_MATCH.getCommand())) {
 			selectPairMatch();
 		}
-		if (selectMain.equals(PAIR_INQUIRY.getCommand())) {
+		if (selectMain.equals(PAIR_INQUIRY.getCommand()) && pairMatchService.checkResults()) {
 			selectPairInquiry();
 		}
 		if (selectMain.equals(PAIR_INIT.getCommand())) {
@@ -61,7 +65,14 @@ public class PairMatchingController {
 	}
 
 	private void selectPairInquiry() {
-
+		try {
+			UserDetail userDetail = receiveUserDetails();
+			MatchResult matchResult = pairMatchService.InquiryMatchResult(userDetail);
+			OutputView.printMatchResult(matchResult.getMatchResult());
+		} catch (IllegalArgumentException e) {
+			OutputView.printError(e.getMessage());
+			selectPairInquiry();
+		}
 	}
 
 	private void selectPairInit() {

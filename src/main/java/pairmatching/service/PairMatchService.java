@@ -28,4 +28,13 @@ public class PairMatchService {
 		return crewReader.readCrewNames();
 	}
 
+	public MatchResult InquiryMatchResult(UserDetail userDetail) {
+		return matchResults.getMatchResult(userDetail);
+	}
+
+	public boolean checkResults() {
+		return matchResults.canInquiryResults();
+	}
+
+
 }
