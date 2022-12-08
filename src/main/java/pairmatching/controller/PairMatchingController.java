@@ -7,14 +7,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import pairmatching.domain.Crews;
+import pairmatching.domain.MatchResult;
+import pairmatching.domain.UserDetail;
+import pairmatching.service.PairMatchService;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
 public class PairMatchingController {
+	private final PairMatchService pairMatchService;
+	public PairMatchingController() {
+		pairMatchService = new PairMatchService();
+	}
 
 	public void run() {
 		String selectMain = "";
-		while (selectMain.equals(QUIT.getCommand())) {
+		while (!selectMain.equals(QUIT.getCommand())) {
 			selectMain = InputView.inputMainFunctionSelect();
 			performSelectFunction(selectMain);
 		}
@@ -33,13 +41,23 @@ public class PairMatchingController {
 	}
 
 	private void selectPairMatch() {
-		List<String> courseAndMission = receiveUserDetails();
+		UserDetail detail = receiveUserDetails();
+		if (pairMatchService.isDetailCanMatch(detail)) {
+			pairMatch(detail);
+		}
 	}
 
-	private List<String> receiveUserDetails() {
+	private UserDetail receiveUserDetails() {
 		OutputView.printCourseAndMission();
-		return Arrays.stream(InputView.inputCourseAndMission().split(","))
-			.collect(Collectors.toList());
+		List<String> detail = Arrays.stream(InputView.inputCourseAndMission().replaceAll(" ", "")
+				.split(",")).collect(Collectors.toList());
+		return new UserDetail(detail.get(0), detail.get(1), detail.get(2));
+	}
+
+	private void pairMatch(UserDetail detail) {
+		int matchCount = 0;
+		MatchResult matchResult = pairMatchService.matchPair(detail);
+		OutputView.printMatchResult(matchResult.getMatchResult());
 	}
 
 	private void selectPairInquiry() {

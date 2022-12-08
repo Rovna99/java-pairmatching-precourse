@@ -4,16 +4,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pair {
-	private final List<Crew> pair;
+	private final Crew crew1;
+	private final Crew crew2;
+	private final Crew crew3;
+	private final List<String> pairNames;
 
 	public Pair(Crew crew1, Crew crew2) {
-		pair = createPair(crew1, crew2);
+		this.crew1 = crew1;
+		this.crew2 = crew2;
+		this.crew3 = null;
+		pairNames = createEvenPairNames();
 	}
 
-	private List<Crew> createPair(Crew crew1, Crew crew2) {
-		List<Crew> matchedCrew = new ArrayList<>();
-		matchedCrew.add(crew1);
-		matchedCrew.add(crew2);
-		return matchedCrew;
+	private List<String> createEvenPairNames() {
+		List<String> pairNames = new ArrayList<>();
+		pairNames.add(crew1.getName());
+		pairNames.add(crew2.getName());
+		return pairNames;
 	}
-}
+
+	public Pair(Crew crew1, Crew crew2, Crew crew3) {
+		this.crew1 = crew1;
+		this.crew2 = crew2;
+		this.crew3 = crew3;
+		pairNames = createOddPairNames();
+	}
+
+	private List<String> createOddPairNames() {
+		List<String> pairNames = new ArrayList<>();
+		pairNames.add(crew1.getName());
+		pairNames.add(crew2.getName());
+		pairNames.add(crew3.getName());
+		return pairNames;
+	}
+
+	public List<String> getPairName() {
+		return pairNames;
+	}
+ }

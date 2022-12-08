@@ -1,5 +1,7 @@
 package pairmatching.view;
 
+import java.util.List;
+
 public class OutputView {
 
 	public static void printCourseAndMission() {
@@ -11,5 +13,13 @@ public class OutputView {
 		System.out.println("- 레벨4: 성능개선 | 배포");
 		System.out.println("- 레벨5:");
 		System.out.println("#############################################");
+	}
+
+	public static void printMatchResult(List<List<String>> result) {
+		System.out.println("페어 매칭 결과입니다.");
+		for (List<String> names : result) {
+			System.out.println(String.join(" : ", names));
+		}
+		System.out.println();
 	}
 }

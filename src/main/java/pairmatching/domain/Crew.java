@@ -5,19 +5,22 @@ import java.util.List;
 
 public class Crew {
 	private final String name;
-	private final List<String> pairNames;
+	private final List<Crew> pairedCrew;
 
 	public Crew(String name) {
 		this.name = name;
-		this.pairNames = new ArrayList<>();
+		this.pairedCrew = new ArrayList<>();
 	}
 
-	public void savePairName(String pairName) {
-		pairNames.add(pairName);
+	public void savePair(Crew pairCrew) {
+		pairedCrew.add(pairCrew);
 	}
 
-	public boolean hasMatchHistory(String pairName) {
-		return pairNames.contains(pairName);
+	public boolean hasMatchHistory(Crew pairCrew) {
+		return pairedCrew.contains(pairCrew);
 	}
 
+	public String getName() {
+		return name;
+	}
 }
